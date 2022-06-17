@@ -176,11 +176,11 @@
             <form name="submit-to-google-sheet">
                 <div class="mb-3">
                   <label for="Name" class="form-label">Nama Lengkap</label>
-                  <input type="text" class="form-control" id="name" aria-describedby="name" name="nama">
+                  <input type="text" class="form-control" id="name" aria-describedby="name" name="nama"/>
                   </div>
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="email" aria-describedby="email" name="email">
+                  <input type="email" class="form-control" id="email" aria-describedby="email" name="email" />
                   </div>
                   <div class="mb-3">
                     <label for="Pesan" class="form-label">Pesan</label>
@@ -213,11 +213,19 @@
   <!-- Akhir Footer -->
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" 
+crossorigin="anonymous"></script>
 
-<script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbzk-CBlvGtejZb7BnKsNhi9j4IstY3vUw5xI8m0AkyN2FC0o8Jssi3QM7HUMlVQNFIsEg/exec'
-  const form = document.forms[submit-to-google-sheet];
+  <script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzk-CBlvGtejZb7BnKsNhi9j4IstY3vUw5xI8m0AkyN2FC0o8Jssi3QM7HUMlVQNFIsEg/exec';
+   const form = document.forms['submit-to-google-sheet']
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => console.log('Success!', response))
+      .catch(error => console.error('Error!', error.message))})
+  </script>
   const btnKirim = document.querySelector('.btn-kirim');
   const btnLoading = document.querySelector('.btn-loading');
   const 
