@@ -169,9 +169,10 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-          <div class="alert alert-success alert-dismissible fade show d-none" role="alert">
+          <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
             <strong>Terima Kasih.</strong> Pesan anda sudah kami terima..
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" 
+            aria-label="Close"></button>
           </div>
             <form name="submit-to-google-sheet">
                 <div class="mb-3">
@@ -186,10 +187,11 @@
                     <label for="Pesan" class="form-label">Pesan</label>
                     <textarea class="form-control" id="Pesan" rows="3" name="pesan"></textarea>
                   </div>
-                  <button type="submit" class="btn btn-primary btn-kirim">Kirim</button>
 
+                  <button type="submit" class="btn btn-primary btn-kirim">Kirim</button>
                   <button class="btn btn-primary btn-loading d-none" type="button" disabled>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span class="spinner-border spinner-border-sm" role="status" 
+                    aria-hidden="true"></span>
                     Loading...
                   </button>
               </form>
@@ -219,30 +221,33 @@ crossorigin="anonymous"></script>
 
   <script>
   const scriptURL = 'https://script.google.com/macros/s/AKfycbzk-CBlvGtejZb7BnKsNhi9j4IstY3vUw5xI8m0AkyN2FC0o8Jssi3QM7HUMlVQNFIsEg/exec';
-   const form = document.forms['submit-to-google-sheet']
-  form.addEventListener('submit', e => {
-    e.preventDefault()
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => console.log('Success!', response))
-      .catch(error => console.error('Error!', error.message))})
-  </script>
+  const form = document.forms['submit-to-google-sheet'];
   const btnKirim = document.querySelector('.btn-kirim');
   const btnLoading = document.querySelector('.btn-loading');
-  const 
+  const myAlert = document.querySelector('.my-alert');
 
-  form.addEventListener('submit', (e) => { e.preventDefault();
-    // ketika tombol submit diklik//
-    //tampilkan tombol loading, hilangkan tombol kirim//
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    //krtika tombol submit diklik
+    //tampilkan tombol loading, hilangkan tombol kirim
     btnLoading.classList.toggle('d-none');
     btnKirim.classList.toggle('d-none');
+
     fetch(scriptURL, { method: 'POST', body: new FormData(form)})
       .then(response => {
-      //tampilkan tombol kirim, hilangkan tombol loading//
+         //tampilkan tombol kirim, hilangkan tombol loading
         btnLoading.classList.toggle('d-none');
-        btnKirim.classList.toggle('d-none');        
-        console.log('Success!', response)})
-
+        btnKirim.classList.toggle('d-none');
+        //tampilkan alert
+        myAlert.classList.toggle('d-none');
+        //reset form
+        form.reset();
+        console.log('Success!', response)
+      })
       .catch(error => console.error('Error!', error.message))})
+      
+  </script>
+  
 </script>
 </body>
 </html>
